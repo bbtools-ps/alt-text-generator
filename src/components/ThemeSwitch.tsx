@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 
 interface ThemeSwitchProps {

@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Button } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { generateImageDescription } from "./api/openai";
-import ThemeSwitch from "./components/ui/ThemeSwitch";
+import ThemeSwitch from "./components/ThemeSwitch";
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
