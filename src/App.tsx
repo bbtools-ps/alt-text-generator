@@ -111,10 +111,10 @@ export default function App() {
   };
 
   return (
-    <div className="p-6 w-full mx-auto flex flex-col items-center justify-center">
+    <div className="mx-auto flex w-full flex-col items-center justify-center p-6">
       <ThemeSwitch className="self-end" />
-      <h1 className="text-xl font-bold mb-4">Alt Text Generator</h1>
-      <div className="space-y-4 max-w-lg w-full">
+      <h1 className="mb-4 text-xl font-bold">Alt Text Generator</h1>
+      <div className="w-full max-w-lg space-y-4">
         {/* Upload Button */}
         <div
           onClick={handleUploadClick}
@@ -123,13 +123,15 @@ export default function App() {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={cn(
-            "flex flex-col items-center text-slate-500 dark:text-slate-200 justify-center w-full h-32 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 transition-colors",
-            isDraggingOver && "bg-blue-500 text-white"
+            "flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 text-slate-500 transition-colors hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-200",
+            isDraggingOver &&
+              "bg-blue-500 text-white dark:bg-blue-500 dark:text-white",
           )}
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
-            <p className="mb-2 text-sm ">
-              <span className="font-semibold">Click to upload</span> or drag and drop
+            <p className="mb-2 text-sm">
+              <span className="font-semibold">Click to upload</span> or drag and
+              drop
             </p>
             <p className="text-xs">SVG, PNG, JPG or GIF</p>
           </div>
@@ -144,12 +146,12 @@ export default function App() {
         {/* Image Preview */}
         {selectedImage && (
           <div className="mt-4">
-            <p className="text-sm font-medium mb-2">Preview:</p>
+            <p className="mb-2 text-sm font-medium">Preview:</p>
             <div className="relative">
               <img
                 src={selectedImage}
                 alt="Preview"
-                className="w-full h-auto object-contain border rounded-lg"
+                className="h-auto w-full rounded-lg border object-contain"
               />
               <Button
                 onClick={handleReset}
@@ -169,9 +171,9 @@ export default function App() {
         >
           {isGenerating ? "Generating..." : "Generate"}
         </Button>
-        <p className="text-sm font-medium mb-2">Description:</p>
+        <p className="mb-2 text-sm font-medium">Description:</p>
         <textarea
-          className="w-full h-24 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="h-24 w-full rounded-lg border p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Generated description will appear here..."
@@ -185,7 +187,7 @@ export default function App() {
             className={cn(
               "w-full",
               isCopied &&
-                "bg-green-900 hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-700 text-white"
+                "bg-green-900 text-white hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-700",
             )}
           >
             {isCopied && <span>Copied!</span>}

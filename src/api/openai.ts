@@ -11,7 +11,9 @@ const openai = new OpenAI({
  * @param imageBase64 - Base64 encoded image data (with data:image/... prefix)
  * @returns Promise containing the generated image description
  */
-export async function generateImageDescription(imageBase64: string): Promise<string> {
+export async function generateImageDescription(
+  imageBase64: string,
+): Promise<string> {
   try {
     const response = await openai.chat.completions.create({
       model: "gemma-3-4b-it-qat",
@@ -32,7 +34,9 @@ export async function generateImageDescription(imageBase64: string): Promise<str
       ],
     });
 
-    return response.choices[0]?.message?.content || "Unable to generate description";
+    return (
+      response.choices[0]?.message?.content || "Unable to generate description"
+    );
   } catch (error) {
     console.error("Error generating image description:", error);
     return "Error generating description. Please try again.";
