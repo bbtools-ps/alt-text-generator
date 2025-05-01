@@ -180,9 +180,8 @@ export default function App() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Generated description will appear here..."
-          readOnly={!description || isCopied || isGenerating}
-        ></textarea>
-
+          readOnly={isCopied || isGenerating}
+        />
         {description && (
           <Button
             onClick={handleCopyToClipboard}
