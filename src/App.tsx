@@ -113,7 +113,7 @@ export default function App() {
   return (
     <div className="p-6 w-full mx-auto flex flex-col items-center justify-center">
       <ThemeSwitch className="self-end" />
-      <h1 className="text-xl font-bold mb-4">Image Alt Tag Generator</h1>
+      <h1 className="text-xl font-bold mb-4">Alt Text Generator</h1>
       <div className="space-y-4 max-w-lg w-full">
         {/* Upload Button */}
         <div

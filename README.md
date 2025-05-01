@@ -1,6 +1,6 @@
-# Image Alt Tag Generator
+# Alt Text Generator
 
-This project is a React application that generates alt tags for images using AI. It integrates with LM Studio to process images and provide accessible alt text descriptions using Google's Gemma-3 model (specifically "gemma-3-4b-it-qat").
+This project is a React application that generates alt text for images using AI. It integrates with LM Studio to process images and provide accessible alt text descriptions using Google's Gemma-3 model (specifically "gemma-3-4b-it-qat").
 
 ## Prerequisites
 
@@ -11,20 +11,21 @@ This project is a React application that generates alt tags for images using AI.
 ## Setup and Installation
 
 1. Install LM Studio from [https://lmstudio.ai/](https://lmstudio.ai/)
-2. Clone this repository
-3. Install dependencies:
+2. Make sure to download the "gemma-3-4b-it-qat" from the LM Studio
+3. Clone this repository
+4. Install dependencies:
 
 ```bash
 pnpm install
 ```
 
-4. Start the development server:
+5. Start the development server:
 
 ```bash
 pnpm dev
 ```
 
-5. Open your browser and navigate to the URL shown in your terminal (typically http://localhost:5173)
+6. Open your browser and navigate to the URL shown in your terminal (typically http://localhost:5173)
 
 ## Project Architecture
 
