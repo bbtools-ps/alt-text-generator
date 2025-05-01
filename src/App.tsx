@@ -3,6 +3,7 @@ import { Button } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { generateImageDescription } from "./api/openai";
 import ThemeSwitch from "./components/ThemeSwitch";
+import { useDebounce } from "./hooks";
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -94,15 +95,17 @@ export default function App() {
   };
 
   const [isCopied, setIsCopied] = useState(false);
+  const debounce = useDebounce(2000);
 
   const handleCopyToClipboard = async () => {
     if (description) {
       try {
         setIsCopied(true);
         await navigator.clipboard.writeText(description);
-        setTimeout(() => {
+
+        debounce(() => {
           setIsCopied(false);
-        }, 2000); // Reset after 2 seconds
+        });
       } catch (err) {
         setIsCopied(false);
         console.error("Failed to copy description:", err);
