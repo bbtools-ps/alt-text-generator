@@ -229,114 +229,122 @@ export default function App() {
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center p-6">
       <ThemeSwitch className="self-end" />
-      <h1 className="mb-4 text-xl font-bold">Alt Text Generator</h1>
-      <div className="w-full max-w-lg space-y-4">
-        {/* Upload Button */}
-        <div
-          onClick={handleUploadClick}
-          onDragEnter={handleDragEnter}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-          className={cn(
-            "flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 text-slate-500 transition-colors hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-200",
-            state.isDraggingOver &&
-              "bg-blue-500 text-white dark:bg-blue-500 dark:text-white",
-          )}
-        >
-          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-            <p className="mb-2 text-sm">
-              <span className="font-semibold">Click to upload</span> or drag and
-              drop
-            </p>
-            <p className="text-xs">SVG, PNG, JPG or GIF</p>
+      <h1 className="mb-20 text-6xl font-bold">Alt Text Generator</h1>
+      <div className="grid w-full max-w-7xl grid-cols-1 space-x-4 sm:grid-cols-2">
+        <div className="space-y-4">
+          {/* Upload Button */}
+          <div
+            onClick={handleUploadClick}
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            className={cn(
+              "flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 text-slate-500 transition-colors hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-200",
+              state.isDraggingOver &&
+                "bg-blue-500 text-white dark:bg-blue-500 dark:text-white",
+            )}
+          >
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+              <p className="mb-2 text-sm">
+                <span className="font-semibold">Click to upload</span> or drag
+                and drop
+              </p>
+              <p className="text-xs">SVG, PNG, JPG or GIF</p>
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="hidden"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
           </div>
-          <input
-            ref={fileInputRef}
-            type="file"
-            className="hidden"
-            accept="image/*"
-            onChange={handleImageChange}
+          {/* Image Preview */}
+          {state.selectedImage && (
+            <div className="mt-4">
+              <p className="mb-2 text-sm font-medium">Preview:</p>
+              <div className="flex items-center justify-center">
+                <div className="relative max-w-60">
+                  <img
+                    src={state.selectedImage}
+                    alt="Preview"
+                    className="h-auto w-full rounded-lg border object-contain"
+                  />
+                  <Button
+                    onClick={handleReset}
+                    aria-label="Remove image"
+                    title="Remove image"
+                    className="absolute top-2 right-2"
+                  >
+                    ×
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+          <Button
+            onClick={handleGenerateDescription}
+            disabled={!state.selectedImage || state.isGeneratingDescription}
+            className="w-full"
+          >
+            {state.isGeneratingDescription
+              ? "Generating..."
+              : "Generate Description & Tags"}
+          </Button>
+        </div>
+        <div className="space-y-4">
+          <p className="mb-2 text-sm font-medium">Description:</p>
+          <textarea
+            className="h-24 w-full rounded-lg border p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            value={state.description}
+            onChange={(e) =>
+              dispatch({ type: "SET_DESCRIPTION", payload: e.target.value })
+            }
+            placeholder="Generated description will appear here..."
+            readOnly={
+              state.isDescriptionCopied || state.isGeneratingDescription
+            }
           />
-        </div>
-        {/* Image Preview */}
-        {state.selectedImage && (
-          <div className="mt-4">
-            <p className="mb-2 text-sm font-medium">Preview:</p>
-            <div className="relative">
-              <img
-                src={state.selectedImage}
-                alt="Preview"
-                className="h-auto w-full rounded-lg border object-contain"
-              />
-              <Button
-                onClick={handleReset}
-                aria-label="Remove image"
-                title="Remove image"
-                className="absolute top-2 right-2"
-              >
-                ×
-              </Button>
-            </div>
-          </div>
-        )}
-        <Button
-          onClick={handleGenerateDescription}
-          disabled={!state.selectedImage || state.isGeneratingDescription}
-          className="w-full"
-        >
-          {state.isGeneratingDescription
-            ? "Generating..."
-            : "Generate Description & Tags"}
-        </Button>
-        <p className="mb-2 text-sm font-medium">Description:</p>
-        <textarea
-          className="h-24 w-full rounded-lg border p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          value={state.description}
-          onChange={(e) =>
-            dispatch({ type: "SET_DESCRIPTION", payload: e.target.value })
-          }
-          placeholder="Generated description will appear here..."
-          readOnly={state.isDescriptionCopied || state.isGeneratingDescription}
-        />
-        {state.description && (
-          <Button
-            onClick={handleCopyDescription}
-            variant="outline"
-            className={cn(
-              "w-full",
-              state.isDescriptionCopied &&
-                "bg-green-900 text-white hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-700",
+          {state.description && (
+            <Button
+              onClick={handleCopyDescription}
+              variant="outline"
+              className={cn(
+                "w-full",
+                state.isDescriptionCopied &&
+                  "bg-green-900 text-white hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-700",
+              )}
+            >
+              {state.isDescriptionCopied ? "Copied!" : "Copy Description"}
+            </Button>
+          )}
+          <div className="space-y-2">
+            <p className="text-sm font-medium">Tags:</p>
+            {state.isGeneratingTags ? (
+              <div className="flex h-16 items-center justify-center rounded-lg border bg-slate-50 dark:bg-slate-900">
+                <span className="text-sm text-slate-500 dark:text-slate-400">
+                  Generating tags...
+                </span>
+              </div>
+            ) : (
+              <Tags tags={state.tags} setTags={setTags} />
             )}
-          >
-            {state.isDescriptionCopied ? "Copied!" : "Copy Description"}
-          </Button>
-        )}
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Tags:</p>
-          {state.isGeneratingTags ? (
-            <div className="flex h-16 items-center justify-center rounded-lg border bg-slate-50 dark:bg-slate-900">
-              <span className="text-sm text-slate-500 dark:text-slate-400">
-                Generating tags...
-              </span>
-            </div>
-          ) : (
-            <Tags tags={state.tags} setTags={setTags} />
+          </div>
+          {state.tags.length > 0 && (
+            <Button
+              onClick={handleCopyTags}
+              variant="outline"
+              className={cn(
+                "w-full",
+                state.isTagsCopied &&
+                  "bg-green-900 text-white hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-700",
+              )}
+            >
+              {state.isTagsCopied ? "Copied!" : "Copy Tags"}
+            </Button>
           )}
         </div>
-        {state.tags.length > 0 && (
-          <Button
-            onClick={handleCopyTags}
-            variant="outline"
-            className={cn(
-              "w-full",
-              state.isTagsCopied &&
-                "bg-green-900 text-white hover:bg-green-700 dark:bg-green-900 dark:hover:bg-green-700",
-            )}
-          >
-            {state.isTagsCopied ? "Copied!" : "Copy Tags"}
-          </Button>
-        )}
       </div>
     </div>
   );
