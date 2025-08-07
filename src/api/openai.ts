@@ -71,7 +71,7 @@ export async function generateTags(description: string): Promise<string[]> {
     // Parse the comma-separated tags and clean them up
     const tags = tagsText
       .split(",")
-      .map((tag) => tag.trim())
+      .map((tag) => tag.trim().toLowerCase())
       .filter((tag) => tag.length > 0)
       .slice(0, 8); // Limit to 8 tags maximum
 
