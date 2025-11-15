@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "lms load gemma-3-4b-it-qat && lms server start --cors && vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint src",
     "preview": "vite preview"
   },
   "dependencies": {
