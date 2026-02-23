@@ -25,7 +25,7 @@ export async function generateImageDescription(
           content: [
             {
               type: "text",
-              text: "Output a single sentence that describers this image.",
+              text: "Output caption for this image in a single sentence",
             },
             {
               type: "image_url",
