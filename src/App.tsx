@@ -191,7 +191,7 @@ export default function App() {
     }
   };
 
-  const debounce = useDebounce(2000);
+  const debounce = useDebounce({ timeout: 2000 });
 
   const handleCopyDescription = async () => {
     if (!state.description) return;
